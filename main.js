@@ -21,8 +21,18 @@ function createGrid(width, height = width) {
         }   
         screen.appendChild(newColumn);
     }
+    setTilesEventListeners();
 }
 
+function setTilesEventListeners () {
+    const tiles = document.getElementsByClassName('tile');
+    
+    for(const tile of tiles) {
+        tile.addEventListener('mouseenter', (e) => {
+            e.target.style.backgroundColor = 'purple';
+        })
+    }
+}
 
 
 
