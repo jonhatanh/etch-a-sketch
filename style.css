@@ -4,39 +4,54 @@
     margin: 0;
 }
 
-body {
-    background-color: whitesmoke;
-    min-height: 100vh;
+.square {
+    width: 100%;
+    margin: 0 auto;
+    font-family: 'Courgette', cursive;
+    position: relative;
+    overflow: hidden;
+}
+.square::before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
+main {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin-top: 4rem;
+    max-width: 100%;
+    max-height: 100%;
+    border: 2px solid black;
+}
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-
-main {
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-    height: 80vh;
-    width: 100%;
-}
-.container {
-    width: 90%;
-    margin: auto;
+    padding: 4rem 1rem;
+    border: 1px dashed yellow;
     border-radius: 20px;
-    height: 65%;
-    padding: 3rem 0.5rem;
     background-color: red;
-    display: flex;
-    justify-content: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    gap: 1rem;
 }
 
 .screen {
     background-color: whitesmoke;
-    border-radius: 1rem;
-    width: 90%;
+    border-radius: 10px;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -55,4 +70,45 @@ main {
     flex: 1 1;
     border: 1px solid rgba(0, 0, 0, 0.5);
 
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+.option {
+    position: relative;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+/* #gridSize {
+    transform: rotate(270deg);
+} */
+#gridSizeText {
+    position: absolute;
+    right: -2rem;
+    text-align: center;
+    transition: all 0.3s;
+}
+#gridSizeText.change {
+    font-size: 1.8rem;
+    color: blue;
+}
+
+
+
+@media (min-width: 640px) {
+    main {
+        padding: 4;
+        margin-top: 5rem;
+    }
+
+    .square {
+        width: 50%;
+    }
 }
