@@ -35,7 +35,17 @@ function setTilesEventListeners () {
 }
 
 
-
+const gridSize = document.getElementById('gridSize');
+const gridSizeText = document.getElementById('gridSizeText');
+gridSize.addEventListener('change', (e)=> {
+    const value = e.target.value;
+    gridSizeText.textContent = value;
+    gridSizeText.classList.add('change');
+    gridSizeText.addEventListener('transitionend', (e) => {
+        gridSizeText.classList.remove('change');
+    })
+    createGrid(value);
+})
 
 
 
