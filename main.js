@@ -8,18 +8,10 @@ let currentScreenSize = {
 };
 let currentColor = {
     hex: "#000000",
-    opacity: 1,
-    getOpacity() {
-        const hexValue = (this.opacity).toString(16);
-        return `${hexValue}${hexValue}`
-    },
-    getColor() {
-        return shaddingActive ? `${this.hex}${this.getOpacity()}`
-            : `${this.hex}`
-    }
 };
 let hoverActive = false;
 let shaddingActive = false;
+let rainbowActive = false;
 
 function createGrid(width, height = width) {
     screen.innerHTML = ""
@@ -61,6 +53,10 @@ function setTilesEventListeners () {
 function paintTile(e) {
     if(!e.target.classList.contains('tile')) return;
     if(!hoverActive) return;
+    if(rainbowActive) {
+        e.target.style.backgroundColor = getRandomHex();
+        return;
+    }
     if(shaddingActive) {
         const newColor = getNewColor(e.target);
         console.log('newColor:', newColor);
@@ -91,15 +87,6 @@ colorInput.addEventListener('input', (e) => {
     console.log(e.target.value);
 })
 
-
-const shaddingBtn = document.getElementById('shaddingBtn');
-const shaddingText = document.getElementById('shaddingText');
-shaddingBtn.addEventListener('click', (e) => {
-    shaddingActive = !shaddingActive;
-    shaddingBtn.classList.contains('active') ? shaddingBtn.classList.remove('active') : shaddingBtn.classList.add('active');
-    currentColor.opacity = 1;
-    shaddingText.innerText = shaddingText.innerText === "OFF" ? "ON" : "OFF";
-})
 
 function getNewColor(tile) {
     let arrayColorsInt = getRgbColors(tile.style.backgroundColor);
@@ -138,14 +125,17 @@ function getRgbColors(string) {
     console.log(colorsInt);
     return colorsInt;
 }
-function getNewOpacity(color, opacityValue = 2) {
-    currentColor.opacity += opacityValue; 
-}
 
-
-function randomHex() {
+function getRandomHex() {
     return "#000000".replace(/0/g, ()=> (~~(Math.random()*16)).toString(16));
 }
+// function getRandomRgb() {
+//     var red = Math.floor(Math.random() * 256);
+//     var green = Math.floor(Math.random() * 256);
+//     var blue = Math.floor(Math.random() * 256);
+  
+//     return "rgb(" + red + ", " + green + ", " + blue + ")";
+//   }
 function componentToHex(num) {
     return num.toString(16).padStart(2,0);
 }
@@ -171,8 +161,26 @@ function hexToRgb(hex) {
 }
   
 
+const shaddingBtn = document.getElementById('shaddingBtn');
+const shaddingText = document.getElementById('shaddingText');
+shaddingBtn.addEventListener('click', (e) => {
+    shaddingActive = !shaddingActive;
+    shaddingBtn.classList.contains('active') ? shaddingBtn.classList.remove('active') : shaddingBtn.classList.add('active');
+    shaddingText.innerText = shaddingText.innerText === "OFF" ? "ON" : "OFF";
+})
 
+const rainbowBtn = document.getElementById('rainbowBtn');
+const rainbowText = document.getElementById('rainbowText');
+rainbowBtn.addEventListener('click', (e) => {
+    rainbowActive = !rainbowActive;
+    rainbowBtn.classList.contains('active') ? rainbowBtn.classList.remove('active') : rainbowBtn.classList.add('active');
+    rainbowText.innerText = rainbowText.innerText === "OFF" ? "ON" : "OFF";
+})
 
+const clearBtn = document.getElementById('clearBtn');
+clearBtn.addEventListener('click', (e) => {
+    createGrid(currentScreenSize.width);
+})
 
 
 createGrid(16);
