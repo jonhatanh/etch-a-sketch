@@ -6,6 +6,16 @@ let currentScreenSize = {
     width: 16,
     height: 16,
 };
+let currentColor = {
+    hex: "#000",
+    opacity: 1,
+    getOpacity() {
+        const hexValue = (this.opacity).toString(16);
+        return `${hexValue}${hexValue}`
+    },
+};
+let hoverActive = false;
+let opacityActive = false;
 
 function createGrid(width, height = width) {
     screen.innerHTML = ""
@@ -24,13 +34,37 @@ function createGrid(width, height = width) {
     setTilesEventListeners();
 }
 
+const hoverText = document.getElementById('hoverText');
+screen.addEventListener('click', (e) => {
+    if(hoverActive) {
+        hoverActive = !hoverActive;
+    } else {
+        hoverActive = !hoverActive;
+        paintTile(e)
+    }
+    hoverText.innerText = hoverText.innerText === "OFF" ? "ON" : "OFF";
+})
+
 function setTilesEventListeners () {
     const tiles = document.getElementsByClassName('tile');
     
     for(const tile of tiles) {
-        tile.addEventListener('mouseenter', (e) => {
-            e.target.style.backgroundColor = 'purple';
-        })
+        tile.addEventListener('mouseenter', paintTile);
+    }
+}
+function paintTile(e) {
+    if(!e.target.classList.contains('tile')) return;
+    if(!hoverActive) return;
+    if(opacityActive) {
+
+        // `rgba(
+        //     ${currentColor.red},
+        //     ${currentColor.green},
+        //     ${currentColor.blue},
+        //     ${currentColor.alpha}
+        //     )
+    } else {
+        e.target.style.backgroundColor = currentColor.hex;
     }
 }
 
@@ -47,9 +81,21 @@ gridSize.addEventListener('change', (e)=> {
     createGrid(value);
 })
 
+const leftButton = document.querySelector('.container-button.left')
+const colorInput = document.getElementById('colorInput');
+colorInput.addEventListener('input', (e) => {
+    currentColor.hex = e.target.value;
+    leftButton.style.backgroundColor = e.target.value;
+})
+
+function addOpacity(color, opacityValue = 2) {
+    currentColor.opacity += opacityValue; 
+}
 
 
-
+function randomHex() {
+    return "#000000".replace(/0/g, ()=> (~~(Math.random()*16)).toString(16));
+}
 
 
 

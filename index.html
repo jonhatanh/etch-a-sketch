@@ -16,17 +16,21 @@
             <div class="container">
                 <div class="settings">
                     <div class="option">
-                        <label for="grid">Grid Size: </label>
+                        <label for="gridSize">Grid Size: </label>
                         <input id="gridSize" type="range" name="grid" min="10" max="50" step="5" value="15">
                         <span id="gridSizeText">15</span>
                     </div>
                 </div>
                 <div id="screen" class="screen"></div>
                 <div class="container-button left">
-                    <div class="button"></div>
+                    <div class="button">
+                        <input id="colorInput" type="color">
+                    </div>
+                    <span>Current Color</span>
                 </div>
                 <div class="container-button right">
-                    <div class="button"></div>
+                    <div class="button" id="hoverText">OFF</div>
+                    <span>Hover</span>
                 </div>
             </div>
     

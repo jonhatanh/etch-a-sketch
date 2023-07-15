@@ -49,7 +49,7 @@ main {
 }
 
 .screen {
-    background-color: whitesmoke;
+    background-color: white;
     border-radius: 10px;
     width: 100%;
     height: 100%;
@@ -68,7 +68,7 @@ main {
 
 .tile {
     flex: 1 1;
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.3);
 
 }
 
@@ -121,8 +121,8 @@ main {
 }
 .container-button > .button {
     position: absolute;
-    width: 4rem;
-    height: 4rem;
+    width: 3.5rem;
+    height: 3.5rem;
     border-radius: 50%;
     top: 0;
     bottom: 0;
@@ -131,8 +131,32 @@ main {
     margin: auto;
     background: radial-gradient(circle at center, rgba(0,0,0,0.2), #fff);
 }
+.container-button.left > span {
+    position: absolute;
+    left: 110%;
+    top: 50%;
+    width: 10rem;
+}
+.container-button.right > span {
+    position: absolute;
+    right: 110%;
+    top: 50%;
+    width: 10rem;
+    text-align: end;
+}
+input[type=color] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+    opacity: 0;
+}
 
-
+#hoverText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
 
