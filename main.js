@@ -7,15 +7,19 @@ let currentScreenSize = {
     height: 16,
 };
 let currentColor = {
-    hex: "#000",
+    hex: "#000000",
     opacity: 1,
     getOpacity() {
         const hexValue = (this.opacity).toString(16);
         return `${hexValue}${hexValue}`
     },
+    getColor() {
+        return shaddingActive ? `${this.hex}${this.getOpacity()}`
+            : `${this.hex}`
+    }
 };
 let hoverActive = false;
-let opacityActive = false;
+let shaddingActive = false;
 
 function createGrid(width, height = width) {
     screen.innerHTML = ""
@@ -52,17 +56,15 @@ function setTilesEventListeners () {
         tile.addEventListener('mouseenter', paintTile);
     }
 }
+
+
 function paintTile(e) {
     if(!e.target.classList.contains('tile')) return;
     if(!hoverActive) return;
-    if(opacityActive) {
-
-        // `rgba(
-        //     ${currentColor.red},
-        //     ${currentColor.green},
-        //     ${currentColor.blue},
-        //     ${currentColor.alpha}
-        //     )
+    if(shaddingActive) {
+        const newColor = getNewColor(e.target);
+        console.log('newColor:', newColor);
+        e.target.style.backgroundColor = newColor;
     } else {
         e.target.style.backgroundColor = currentColor.hex;
     }
@@ -86,9 +88,57 @@ const colorInput = document.getElementById('colorInput');
 colorInput.addEventListener('input', (e) => {
     currentColor.hex = e.target.value;
     leftButton.style.backgroundColor = e.target.value;
+    console.log(e.target.value);
 })
 
-function addOpacity(color, opacityValue = 2) {
+
+const shaddingBtn = document.getElementById('shaddingBtn');
+const shaddingText = document.getElementById('shaddingText');
+shaddingBtn.addEventListener('click', (e) => {
+    shaddingActive = !shaddingActive;
+    shaddingBtn.classList.contains('active') ? shaddingBtn.classList.remove('active') : shaddingBtn.classList.add('active');
+    currentColor.opacity = 1;
+    shaddingText.innerText = shaddingText.innerText === "OFF" ? "ON" : "OFF";
+})
+
+function getNewColor(tile) {
+    let arrayColorsInt = getRgbColors(tile.style.backgroundColor);
+
+    if(arrayColorsInt === undefined || (rgbToHex(arrayColorsInt) === "#ffffff")) {
+        arrayColorsInt = hexToRgb(currentColor.hex)
+        arrayColorsInt.push(0.1);
+        return `rgba(${arrayColorsInt.join(',')})`;
+    }
+
+    if(arrayColorsInt[3] === undefined) { //Dont paint solid tiles 
+        return tile.style.backgroundColor;
+    }
+
+    if (currentColor.hex === rgbToHex(arrayColorsInt)) {
+            arrayColorsInt[3] = (arrayColorsInt[3] * 10 + 1) / 10;
+    } else {
+        arrayColorsInt = hexToRgb(currentColor.hex)
+        arrayColorsInt.push(0.1);
+    }
+    return `rgba(${arrayColorsInt.join(',')})`;
+}
+function getRgbColors(string) {
+    if (string == '') return undefined;
+    let colors = [];
+    if(string.includes('rgba')) {
+        colors = string.substring(5, string.length - 1).split(',');
+    } else {
+        colors = string.substring(4, string.length - 1).split(',');
+    }
+    const colorsInt = colors.map(color => {
+        color = color.trim();
+        color = +color;
+        return color;
+    });
+    console.log(colorsInt);
+    return colorsInt;
+}
+function getNewOpacity(color, opacityValue = 2) {
     currentColor.opacity += opacityValue; 
 }
 
@@ -96,7 +146,30 @@ function addOpacity(color, opacityValue = 2) {
 function randomHex() {
     return "#000000".replace(/0/g, ()=> (~~(Math.random()*16)).toString(16));
 }
+function componentToHex(num) {
+    return num.toString(16).padStart(2,0);
+}
+function rgbToHex([r, g, b]) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+function hexToRgb(hex) {
+    hex = hex.replace("#", "");
+  
+    if (hex.length === 3) {
+      hex = hex
+        .split("")
+        .map(function (char) {
+          return char + char;
+        })
+        .join("");
+    }
 
+    const red = parseInt(hex.substring(0, 2), 16);
+    const green = parseInt(hex.substring(2, 4), 16);
+    const blue = parseInt(hex.substring(4, 6), 16);
+    return [red,green,blue];
+}
+  
 
 
 

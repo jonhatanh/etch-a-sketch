@@ -2,6 +2,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    --main-color: #FFD700;
 }
 
 .square {
@@ -77,7 +78,12 @@ main {
     gap: 1.5rem;
     justify-content: center;
     width: 100%;
-    align-items: center;
+}
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 2rem;
 }
 .option {
     position: relative;
@@ -85,9 +91,22 @@ main {
     gap: 0.5rem;
     align-items: center;
 }
-/* #gridSize {
-    transform: rotate(270deg);
-} */
+.btn {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    transition: all 0.5s;
+}
+.btn span {
+    font-weight: 700;
+}
+.btn.active {
+    background-color: var(--main-color);
+}
+#gridSize {
+    accent-color: var(--main-color);
+}
 #gridSizeText {
     position: absolute;
     right: -2rem;

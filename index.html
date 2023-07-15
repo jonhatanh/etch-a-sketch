@@ -15,10 +15,15 @@
         <main>
             <div class="container">
                 <div class="settings">
-                    <div class="option">
-                        <label for="gridSize">Grid Size: </label>
-                        <input id="gridSize" type="range" name="grid" min="10" max="50" step="5" value="15">
-                        <span id="gridSizeText">15</span>
+                    <div class="options">
+                        <div class="option">
+                            <label for="gridSize">Grid Size: </label>
+                            <input id="gridSize" type="range" name="grid" min="10" max="50" step="5" value="15">
+                            <span id="gridSizeText">15</span>
+                        </div>
+                        <div class="option">
+                            <button id="shaddingBtn" class="btn">Shadding <span id="shaddingText">OFF</span></button>
+                        </div>
                     </div>
                 </div>
                 <div id="screen" class="screen"></div>
