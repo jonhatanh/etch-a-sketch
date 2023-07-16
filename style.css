@@ -5,6 +5,10 @@
     --main-color: #FFD700;
 }
 
+body {
+    overflow: hidden;
+    margin-top: 2rem;
+}
 .square {
     width: 100%;
     margin: 0 auto;
@@ -28,7 +32,6 @@ main {
     justify-content: center;
     align-items: center;
     padding: 0;
-    margin-top: 4rem;
     max-width: 100%;
     max-height: 100%;
 }
@@ -40,13 +43,26 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 4rem 1rem;
+    padding: 4rem 4rem 4rem;
     background-color: red;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     gap: 1rem;
     font-size: 24px;
 }
+.container h1 {
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    right: 0;
+    color: var(--main-color);
+    text-align: center;
+    text-shadow: 3px 3px 5px var(--main-color);
+}
+/* .container h1 {
+    color: var(--main-color);
+} */
+
 
 .screen {
     background-color: white;
@@ -83,7 +99,7 @@ main {
 .options {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: 2rem;
 }
 .option {
@@ -171,13 +187,13 @@ main {
 .container-button.left > span {
     position: absolute;
     left: 110%;
-    top: 50%;
+    top: 33%;
     width: 10rem;
 }
 .container-button.right > span {
     position: absolute;
     right: 110%;
-    top: 50%;
+    top: 33%;
     width: 10rem;
     text-align: end;
 }
@@ -196,7 +212,21 @@ input[type=color] {
 }
 
 
+main > span {
+    position: absolute;
+    bottom: 100%;
+    z-index: 100;
+}
+main > span a {
+    text-decoration: none;
+    color: black;
+    transition: all 0.4s;
+}
 
+main > span a:hover {
+    color: var(--main-color);
+    text-shadow: 0 0 3px black;
+}
 
 
 @media (min-width: 640px) {
@@ -205,9 +235,7 @@ input[type=color] {
     }
 }
 @media (min-width: 768px) {
-    main {
-        margin-top: 5rem;
-    }
+    
 
     .square {
         width: 90%;
@@ -216,18 +244,18 @@ input[type=color] {
 
 @media (min-width: 1024px) {
     .square {
-        width: 75%;
+        width: 72%;
     }
 }
 
 @media (min-width: 1280px) {
     .square {
-        width: 63%;
+        width: 60%;
     }
 }
 
 @media (min-width: 1536px) {
     .square {
-        width: 50%;
+        width: 48%;
     }
 }
