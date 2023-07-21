@@ -228,6 +228,10 @@ main > span a:hover {
     text-shadow: 0 0 3px black;
 }
 
+button {
+    font-family: inherit;
+    font-size: 20px;
+}
 
 @media (min-width: 640px) {
     .square::before {
